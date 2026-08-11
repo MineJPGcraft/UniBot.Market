@@ -9,7 +9,10 @@ SHA-256 由本脚本（仓库维护者控制的 workflow）计算并写入，用
 元数据中不包含也不接受 sha256 字段，防止篡改。
 
 用法：
-    python scripts/build_registry.py             # 构建并写入 extensions.json
+    python scripts/build_registry.py             # 构建并写入 extensions.json（增量更新）
+    python scripts/build_registry.py --force     # 强制重新下载所有扩展的所有版本
+    python scripts/build_registry.py --force Placeholder      # 仅强制覆盖指定扩展
+    python scripts/build_registry.py --force Placeholder A B  # 强制覆盖多个扩展
     python scripts/build_registry.py --validate  # 严格校验（PR 用），不写文件
 """
 
@@ -93,8 +96,12 @@ def read_manifest_unibot(zip_data: bytes) -> str:
         return '*'
 
 
-def build_extension(meta: dict, strict: bool) -> dict | None:
-    """构建单个扩展的注册表条目；strict 模式下失败抛异常。"""
+def build_extension(meta: dict, strict: bool, existing: dict | None, force: bool) -> dict | None:
+    """构建单个扩展的注册表条目；strict 模式下失败抛异常。
+
+    existing 为注册表中该扩展的旧条目（增量模式复用其已存在的版本，避免重复下载）。
+    force 为 True 时该扩展所有版本强制重新下载（覆盖已存在的）。
+    """
     extension_id = meta['id']
     repo = meta['repo']
     try:
@@ -118,11 +125,25 @@ def build_extension(meta: dict, strict: bool) -> dict | None:
         print(f'⚠️ {message}，已跳过')
         return None
 
+    # 旧条目中仍存在的版本（GitHub 上依然存在）视为已收录，增量模式下直接复用
+    existing_releases = {}
+    if existing and not force:
+        seen_tags = {release.get('tag_name', '') for release in data}
+        for old in existing.get('releases', []):
+            version = old.get('version', '')
+            tag = f'v{version}' if not version.startswith('v') else version
+            if tag in seen_tags:
+                existing_releases[version] = old
+
     releases = []
     for release in data:
         tag = release.get('tag_name', '')
         version = tag[1:] if tag.startswith('v') else tag
         if not version:
+            continue
+        # 增量模式：该版本已存在则直接复用，不重新下载
+        if version in existing_releases:
+            releases.append(existing_releases[version])
             continue
         zip_assets = [
             asset for asset in release.get('assets', []) if asset.get('name', '').lower().endswith('.zip')
@@ -199,8 +220,22 @@ def validate_metadata(path: Path) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description='构建 UniBot 扩展市场注册表')
+    parser.add_argument('--force', nargs='*', default=None, metavar='ID',
+                        help='强制重新下载并覆盖：不带参数时覆盖全部扩展，可指定一个或多个扩展 id')
     parser.add_argument('--validate', action='store_true', help='严格校验模式（PR 用），不写文件')
     args = parser.parse_args()
+
+    # force 为 None（未加）→ 全增量；为 []（加 --force）→ 全覆盖；为 [id,...] → 仅指定扩展覆盖
+    force_ids = set(args.force) if args.force is not None else None
+    FORCE_ALL = force_ids is not None and not force_ids
+
+    # 读取旧注册表，供增量模式复用已存在的版本
+    old_registry = {}
+    if not args.validate and OUTPUT.exists():
+        try:
+            old_registry = {entry['id']: entry for entry in json.loads(OUTPUT.read_text('utf-8'))}
+        except Exception as error:
+            print(f'⚠️ 读取旧 {OUTPUT.name} 失败（视为无缓存）：{error}')
 
     # 跳过以下划线开头的文件（如 _EXAMPLE.json 模板）
     meta_files = sorted(path for path in META_DIR.glob('*.json') if not path.name.startswith('_'))
@@ -228,7 +263,11 @@ def main() -> None:
 
     registry = []
     for meta in metas:
-        entry = build_extension(meta, strict=args.validate)
+        # 未指定 id 时全覆盖；指定了 id 则仅匹配到的扩展强制覆盖
+        force = force_ids is None or meta['id'] in force_ids
+        entry = build_extension(meta, strict=args.validate,
+                                existing=old_registry.get(meta['id']), force=force)
+        # 增量模式：GitHub 上已删除的 release 不在新列表中，自然会被剔除
         if entry is not None:
             registry.append(entry)
     registry.sort(key=lambda entry: entry['id'])
