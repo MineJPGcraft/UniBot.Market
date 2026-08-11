@@ -164,6 +164,7 @@ def build_extension(meta: dict, strict: bool) -> dict | None:
         'name': meta['name'],
         'repo': repo,
         'description': meta.get('description', ''),
+        'official': meta.get('official', False),
         'releases': releases,
     }
 
@@ -188,6 +189,10 @@ def validate_metadata(path: Path) -> dict:
     repo = meta.get('repo', '')
     if not re.match(r'^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$', repo):
         print(f'❌ {path.name}：repo 格式非法（须为 owner/repo，如 MineJPGcraft/Example）')
+        sys.exit(1)
+    official = meta.get('official', False)
+    if not isinstance(official, bool):
+        print(f'❌ {path.name}：official 必须是布尔值（true/false）')
         sys.exit(1)
     return meta
 

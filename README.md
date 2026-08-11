@@ -29,7 +29,8 @@ Market/
   "id": "Example",
   "name": "示例扩展",
   "repo": "MineJPGcraft/Example",
-  "description": "一个演示 UniBot 扩展开发流程的示例扩展。"
+  "description": "一个演示 UniBot 扩展开发流程的示例扩展。",
+  "official": false
 }
 ```
 
@@ -41,6 +42,7 @@ Market/
    | `name` | 是 | 显示名称 |
    | `repo` | 是 | 扩展源码仓库，格式 `owner/repo` |
    | `description` | 否 | 扩展描述 |
+   | `official` | 否 | 是否官方发布（布尔值，默认 `false`），由仓库维护者审核设置，第三方扩展不可自行声明 |
 
 3. **提交 PR**：`build.yml` 会在 PR 上自动校验元数据格式，并到你的扩展仓库拉取
    Release 验证可构建。合并后 `extensions.json` 会自动生成。
