@@ -11,6 +11,12 @@
         "asset_url": "https://github.com/Minecraft-UniBot/Extension.Placeholder/releases/download/v1.0.0/Placeholder-1.0.0.zip",
         "sha256": "12509cf54d6578c8d5243fbf85d7344949fa8dcc21dac73dcc7603dc0a0c70ba",
         "unibot_version": "*"
+      },
+      {
+        "version": "1.0.1",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Placeholder/releases/download/v1.0.1/Placeholder-1.0.1.zip",
+        "sha256": "7412aedf69d7d94379df2448c6096c66ccc261600ae2c44002aa3fa0f96ab3ad",
+        "unibot_version": "*"
       }
     ]
   }
