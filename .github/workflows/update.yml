@@ -1,0 +1,51 @@
+name: Update Registry
+
+# 触发条件：
+#   - schedule —— 每天 9 点 / 15 点 / 21 点（北京时间，即 UTC 1 / 7 / 13 点）自动检测
+#                 各扩展仓库的新 Release，刷新版本与 SHA-256
+#   - workflow_dispatch —— 手动触发
+#
+# 行为：重新构建 Extensions.json，若有变化则自动提交到 main。
+#       SHA-256 由本 workflow 计算，用户无法伪造。
+
+on:
+#   schedule:
+#     - cron: '0 1,7,13 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-registry
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Build registry
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/build_registry.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Extensions.json
+          if git diff --cached --quiet; then
+            echo '✅ 注册表无变化'
+          else
+            git commit -m 'chore: 更新扩展市场注册表'
+            git push
+            echo '✅ 已更新注册表'
+          fi

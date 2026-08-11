@@ -1,0 +1,6 @@
+{
+  "id": "Example",
+  "name": "示例扩展",
+  "repo": "Minecraft-UniBot/Example",
+  "description": "一个演示 UniBot 扩展开发流程的示例扩展：包含指令、服务与配置。"
+}

@@ -1,0 +1,52 @@
+name: Build Registry
+
+# 触发条件：
+#   - pull_request —— 校验新增/修改的扩展元数据（严格模式，不写文件）
+#   - push 到 main —— 重新构建注册表并验证与提交内容一致（防止手动篡改 Extensions.json）
+#
+# 行为：读取 extensions/*.json 元数据，从各扩展仓库的 GitHub Release 拉取
+#       扩展包 zip 并计算 SHA-256，生成 Extensions.json。
+
+on:
+  pull_request:
+    paths:
+      - 'extensions/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'extensions/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Validate metadata (PR)
+        if: github.event_name == 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/build_registry.py --validate
+
+      - name: Build registry (push)
+        if: github.event_name == 'push'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/build_registry.py
+
+      - name: Verify registry is up to date
+        if: github.event_name == 'push'
+        run: git diff --exit-code -- Extensions.json
