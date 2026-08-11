@@ -1,13 +1,13 @@
 # UniBot.Market
 
-UniBot 机器人的扩展市场。本仓库维护一个**由机器人自动读取的注册表** `Extensions.json`，
+UniBot 机器人的扩展市场。本仓库维护一个**由机器人自动读取的注册表** `extensions.json`，
 用户通过 **Pull Request** 添加自己的扩展，机器人即可在 WebUI 中搜索并一键安装。
 
 ## 目录结构
 
 ```
 Market/
-├── Extensions.json          # 注册表（机器人读取，由 workflow 自动生成，勿手改）
+├── extensions.json          # 注册表（机器人读取，由 workflow 自动生成，勿手改）
 ├── extensions/
 │   └── <扩展id>.json        # 扩展元数据（用户提交，不包含 sha256）
 ├── scripts/
@@ -43,7 +43,7 @@ Market/
    | `description` | 否 | 扩展描述 |
 
 3. **提交 PR**：`build.yml` 会在 PR 上自动校验元数据格式，并到你的扩展仓库拉取
-   Release 验证可构建。合并后 `Extensions.json` 会自动生成。
+   Release 验证可构建。合并后 `extensions.json` 会自动生成。
 
 > **为什么不需要填写 sha256？** SHA-256 校验和由本仓库的 workflow 在构建时实时计算，
 > 用于防止下载被篡改。用户提交的元数据中不包含也不接受 sha256 字段，保证安全。

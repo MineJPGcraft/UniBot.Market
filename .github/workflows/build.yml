@@ -2,10 +2,10 @@ name: Build Registry
 
 # 触发条件：
 #   - pull_request —— 校验新增/修改的扩展元数据（严格模式，不写文件）
-#   - push 到 main —— 重新构建注册表并验证与提交内容一致（防止手动篡改 Extensions.json）
+#   - push 到 main —— 重新构建注册表并验证与提交内容一致（防止手动篡改 extensions.json）
 #
 # 行为：读取 extensions/*.json 元数据，从各扩展仓库的 GitHub Release 拉取
-#       扩展包 zip 并计算 SHA-256，生成 Extensions.json。
+#       扩展包 zip 并计算 SHA-256，生成 extensions.json。
 
 on:
   pull_request:
@@ -49,4 +49,4 @@ jobs:
 
       - name: Verify registry is up to date
         if: github.event_name == 'push'
-        run: git diff --exit-code -- Extensions.json
+        run: git diff --exit-code -- extensions.json

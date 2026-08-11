@@ -5,7 +5,7 @@ name: Update Registry
 #                 各扩展仓库的新 Release，刷新版本与 SHA-256
 #   - workflow_dispatch —— 手动触发
 #
-# 行为：重新构建 Extensions.json，若有变化则自动提交到 main。
+# 行为：重新构建 extensions.json，若有变化则自动提交到 main。
 #       SHA-256 由本 workflow 计算，用户无法伪造。
 
 on:
@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add Extensions.json
+          git add extensions.json
           if git diff --cached --quiet; then
             echo '✅ 注册表无变化'
           else

@@ -3,13 +3,13 @@
 
 读取 `extensions/*.json` 元数据（用户通过 PR 提交），从各扩展仓库的
 GitHub Release 拉取扩展包 zip 并计算 SHA-256，生成 UniBot 端消费的
-`Extensions.json`。
+`extensions.json`。
 
 SHA-256 由本脚本（仓库维护者控制的 workflow）计算并写入，用户提交的
 元数据中不包含也不接受 sha256 字段，防止篡改。
 
 用法：
-    python scripts/build_registry.py             # 构建并写入 Extensions.json
+    python scripts/build_registry.py             # 构建并写入 extensions.json
     python scripts/build_registry.py --validate  # 严格校验（PR 用），不写文件
 """
 
