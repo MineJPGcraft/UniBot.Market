@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "Placeholder",
+    "name": "占位符 API",
+    "repo": "Minecraft-UniBot/Extension.Placeholder",
+    "description": "通过 RCON 桥接服务器占位符模组/插件，提供占位符渲染、查询与列表能力。",
+    "releases": [
+      {
+        "version": "1.0.0",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Placeholder/releases/download/v1.0.0/Placeholder-1.0.0.zip",
+        "sha256": "12509cf54d6578c8d5243fbf85d7344949fa8dcc21dac73dcc7603dc0a0c70ba",
+        "unibot_version": "*"
+      }
+    ]
+  }
+]
