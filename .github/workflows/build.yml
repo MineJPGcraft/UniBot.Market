@@ -47,3 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/build_registry.py
+
+      - name: Show registry diff (push)
+        if: github.event_name == 'push'
+        run: git diff -- extensions.json || true
