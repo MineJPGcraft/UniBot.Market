@@ -1,0 +1,7 @@
+{
+  "id": "Default",
+  "name": "默认模板 & 资源",
+  "repo": "Minecraft-UniBot/Extension.Default",
+  "description": "默认内置指令的图片模板与资源包。",
+  "official": true
+}

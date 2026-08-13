@@ -1,0 +1,7 @@
+{
+  "id": "Html2Pic",
+  "name": "Html2Pic 渲染引擎",
+  "repo": "Minecraft-UniBot/Extension.Html2Pic",
+  "description": "内置 HTML 转图片渲染引擎，采用 Html2Pic 渲染。",
+  "official": true
+}
