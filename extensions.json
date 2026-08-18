@@ -11,6 +11,12 @@
         "asset_url": "https://github.com/Minecraft-UniBot/Extension.Default/releases/download/v1.0.0/Default-1.0.0.zip",
         "sha256": "b4c342b0eafe8246c11ef270b49b614f6ea0554e95370d16fe5cb8022c7e6dc4",
         "unibot_version": "*"
+      },
+      {
+        "version": "1.0.1",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Default/releases/download/v1.0.1/Default-1.0.1.zip",
+        "sha256": "ec88c301f7e74d951fd8f3110a7246a0fd7da9cbad1462cc0048851e8e24e1a4",
+        "unibot_version": "*"
       }
     ]
   },
