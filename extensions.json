@@ -32,6 +32,12 @@
         "asset_url": "https://github.com/Minecraft-UniBot/Extension.Html2Pic/releases/download/v1.0.0/Html2Pic-1.0.0.zip",
         "sha256": "e2defcb444e30aa7412239f6c595a1ce8f2c56cbd984632ea174b8b073c1ff57",
         "unibot_version": "*"
+      },
+      {
+        "version": "1.0.1",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Html2Pic/releases/download/v1.0.1/Html2Pic-1.0.1.zip",
+        "sha256": "5b0ba97b72fbaf20235453c041675338c714ee8e0c1ec549653bcfe00f2b9eb4",
+        "unibot_version": ">= 1.0.2"
       }
     ]
   },
@@ -53,6 +59,21 @@
         "asset_url": "https://github.com/Minecraft-UniBot/Extension.Placeholder/releases/download/v1.0.1/Placeholder-1.0.1.zip",
         "sha256": "7412aedf69d7d94379df2448c6096c66ccc261600ae2c44002aa3fa0f96ab3ad",
         "unibot_version": "*"
+      }
+    ]
+  },
+  {
+    "id": "Playwright",
+    "name": "Playwright 渲染引擎",
+    "repo": "Minecraft-UniBot/Extension.Playwright",
+    "description": "常用 HTML 转图片渲染引擎，采用 Playwright 操作浏览器渲染。",
+    "official": true,
+    "releases": [
+      {
+        "version": "1.0.0",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Playwright/releases/download/v1.0.0/Playwright-1.0.0.zip",
+        "sha256": "cf56a5c0f81cef0c91cca0b85c8a31f238f7df0c642511bdf0adc96dd7654e9f",
+        "unibot_version": ">= 1.0.2"
       }
     ]
   }
