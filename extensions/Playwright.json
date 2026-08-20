@@ -1,0 +1,7 @@
+{
+  "id": "Playwright",
+  "name": "Playwright 渲染引擎",
+  "repo": "Minecraft-UniBot/Extension.Playwright",
+  "description": "常用 HTML 转图片渲染引擎，采用 Playwright 操作浏览器渲染。",
+  "official": true
+}
