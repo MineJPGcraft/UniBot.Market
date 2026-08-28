@@ -44,6 +44,12 @@
         "asset_url": "https://github.com/Minecraft-UniBot/Extension.Html2Pic/releases/download/v1.0.1/Html2Pic-1.0.1.zip",
         "sha256": "5b0ba97b72fbaf20235453c041675338c714ee8e0c1ec549653bcfe00f2b9eb4",
         "unibot_version": ">= 1.0.2"
+      },
+      {
+        "version": "1.0.2",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Html2Pic/releases/download/v1.0.2/Html2Pic-1.0.2.zip",
+        "sha256": "729528b2d92e827199c5611e4d457f9dba7b76a0c7700645c6a6678218497b80",
+        "unibot_version": ">= 1.0.2"
       }
     ]
   },
