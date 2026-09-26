@@ -54,6 +54,21 @@
     ]
   },
   {
+    "id": "Performance",
+    "name": "性能工具",
+    "repo": "Minecraft-UniBot/Extension.Performance",
+    "description": "查询 Minecraft 服务器 TPS/MSPT，支持指令、占位符多种数据源与定时阈值告警。",
+    "official": true,
+    "releases": [
+      {
+        "version": "1.0.0",
+        "asset_url": "https://github.com/Minecraft-UniBot/Extension.Performance/releases/download/v1.0.0/Performance-1.0.0.zip",
+        "sha256": "d90c4350df35fd9f0feb8883bb5924342889635e48f8989542e06db46238dbd6",
+        "unibot_version": "*"
+      }
+    ]
+  },
+  {
     "id": "Placeholder",
     "name": "占位符 API",
     "repo": "Minecraft-UniBot/Extension.Placeholder",
