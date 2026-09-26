@@ -1,0 +1,7 @@
+{
+  "id": "Performance",
+  "name": "性能工具",
+  "repo": "Minecraft-UniBot/Extension.Performance",
+  "description": "查询 Minecraft 服务器 TPS/MSPT，支持指令、占位符多种数据源与定时阈值告警。",
+  "official": true
+}
